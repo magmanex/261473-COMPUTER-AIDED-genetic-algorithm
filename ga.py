@@ -35,3 +35,33 @@ def randall_sols(pop):
         for j in range(TARGET_LEN):
             pop[i].sol[j] = random.randint(0,CHROMOSOME_MAX)
 
+# For every correct chromosome, we add 1 to the score
+# Thus, a perfect score is equal to TARGET_LEN
+
+def calc_fitness(pop):
+    fitness = 0
+    for i in range(GA_POPSIZE):
+        fitness = 0
+        for j in range(TARGET_LEN):
+            if pop[i].sol[j] == target[j]:
+                fitness+=1
+        pop[i].fitness = fitness
+
+def insertion_sort_ga_memb(a , asize):
+    d = []
+
+    k = asize
+    for i in range(k):
+        d = a[i]
+        j = i - 1
+        while j >= 0 and a[j].fitness > d.fitness :
+            a[j + 1] = a[j]
+            j = j - 1
+
+def print_best(pop , gen):
+    i = 1
+    print("At gen" , gen , "best: " , pop[GA_POPSIZE - 1].sol)
+    for i in range(TARGET_LEN):
+        print("," , pop[GA_POPSIZE - 1].sol + i)
+    print("(" , (pop[GA_POPSIZE - 1].fitness * 100 ) / TARGET_LEN , ")" )
+
