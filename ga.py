@@ -65,3 +65,18 @@ def print_best(pop , gen):
         print("," , pop[GA_POPSIZE - 1].sol + i)
     print("(" , (pop[GA_POPSIZE - 1].fitness * 100 ) / TARGET_LEN , ")" )
 
+def mutate(pop):
+    for i in GA_ELITERATE:
+        if random.random() % GA_MUTCHANCE == 0:
+            randint = random.random()
+            pop[0].sol[randint % TARGET_LEN] = randint
+
+def cp_mems(src , targ , size):
+    i = GA_POPSIZE - 1
+    while i >= size:
+        targ[i].fitness = src[i].fitness
+        j = 0
+        while j < TARGET_LEN:
+            targ[i].sol[j] = src[i].sol[j]
+            j += 1
+        i += 1
